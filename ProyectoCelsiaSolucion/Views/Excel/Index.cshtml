@@ -1,0 +1,132 @@
+@model ProyectoCelsiaSolucion.ViewModels.ExcelViewModel
+
+<body>
+    <div class="container">
+        <div class="text-center">
+            <h1 class="display-4">Lista de Datos</h1>
+            <p>Learn about <a href="http://docs.microsoft.com/aspnet/core">building web app with ASP.NET Core</a>.</p>
+        </div>
+
+        <form method="post" asp-action="ImportarDatosExcel" enctype="multipart/form-data" class="mt-4">
+            <div class="form-group">
+                <label for="archivo">Subir archivo Excel</label>
+                <input type="file" name="archivo" id="archivo" class="form-control-file" accept=".xlsx,.xls"/>
+            </div>
+            <button class="btn btn-primary" type="submit">Enviar</button>
+        </form>
+
+        @if (ViewBag.Message != null)
+        {
+            <div class="alert alert-info mt-4">@ViewBag.Message</div>
+        }
+
+        <div class="mt-4">
+            <h2>Clientes</h2>
+            <a class="btn btn-primary mb-2" asp-action="ExportarClientesExcel">Descargar Excel de Clientes</a>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Documento</th>
+                        <th>Dirección</th>
+                        <th>Teléfono</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var customer in Model.Customers)
+                    {
+                        <tr>
+                            <td>@customer.Names</td>
+                            <td>@customer.Document</td>
+                            <td>@customer.Address</td>
+                            <td>@customer.Phone</td>
+                            <td>@customer.Email</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mt-4">
+            <h2>Facturas</h2>
+            <a class="btn btn-primary mb-2" asp-action="ExportarFacturasExcel">Descargar Excel de Facturas</a>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Número</th>
+                        <th>Fecha</th>
+                        <th>Monto Factura</th>
+                        <th>Monto Pagado</th>
+                        <th>ID Cliente</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var invoice in Model.Invoices)
+                    {
+                        <tr>
+                            <td>@invoice.Number</td>
+                            <td>@invoice.Date</td>
+                            <td>@invoice.AmountInvoice</td>
+                            <td>@invoice.AmountPaid</td>
+                            <td>@invoice.CustomerId</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mt-4">
+            <h2>Plataformas</h2>
+            <a class="btn btn-primary mb-2" asp-action="ExportarPlataformasExcel">Descargar Excel de Plataformas</a>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var platform in Model.Platforms)
+                    {
+                        <tr>
+                            <td>@platform.Name</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mt-4">
+            <h2>Transacciones</h2>
+            <a class="btn btn-primary mb-2" asp-action="ExportarTransaccionesExcel">Descargar Excel de Transacciones</a>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Fecha y Hora</th>
+                        <th>Monto</th>
+                        <th>Estado</th>
+                        <th>Tipo</th>
+                        <th>ID Plataforma</th>
+                        <th>ID Factura</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var transaction in Model.Transactions)
+                    {
+                        <tr>
+                            <td>@transaction.Id</td>
+                            <td>@transaction.DateHour</td>
+                            <td>@transaction.Amount</td>
+                            <td>@transaction.Status</td>
+                            <td>@transaction.Type</td>
+                            <td>@transaction.PlatformId</td>
+                            <td>@transaction.InvoiceId</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

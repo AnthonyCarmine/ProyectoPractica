@@ -1,0 +1,113 @@
+@model IEnumerable<ProyectoCelsiaSolucion.Models.Customer>
+
+<div class="container">
+    <div class="d-flex justify-content-between mb-3">
+        <div>
+            <a href="@Url.Action("Create", "CustomerCreate")" class="btn btn-primary" style="width: 150px;">Crear Cliente</a>
+            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#deleteAllModal" style="width: 150px;">Eliminar Todos</button>
+        </div>
+        <div class="w-50">
+            <form asp-action="Search" method="get" class="d-flex">
+                <input type="text" name="query" class="form-control me-2" placeholder="Buscar">
+                <button type="submit" class="btn btn-primary me-2">Buscar</button>
+                <a href="@Url.Action("Index", "Customer")" class="btn btn-secondary">Limpiar</a>
+            </form>
+        </div>
+    </div>
+
+    <table class="table table-dark table-striped">
+        <thead>
+            <th>ID</th>
+            <th>Names</th>
+            <th>Document Number</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </thead>
+        @foreach (var customer in Model)
+        {
+            <tbody>
+                <tr>
+                    <td>@customer.Id</td>
+                    <td>@customer.Names</td>
+                    <td>@customer.Document</td>
+                    <td>@customer.Address</td>
+                    <td>@customer.Phone</td>
+                    <td>@customer.Email</td>
+                    <td>
+                        <a class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#detailModal" data-id="@customer.Id">Details</a>
+                        <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@customer.Id">Update</a>
+                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="@customer.Id" data-name="@customer.Names">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        }
+    </table>
+</div>
+
+<!-- Modal Delete-->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content text-dark">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Eliminar Usuario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Deseas eliminar al usuario: <span id="modalCustomerName"></span>?</p>
+            </div>
+            <div class="modal-footer">
+                <form id="deleteForm" asp-action="Delete" asp-controller="CustomerDelete" method="post">
+                    <input type="hidden" name="id" id="modalCustomerId" />
+                    <button type="submit" class="btn btn-primary">Eliminar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Delete All-->
+<div class="modal fade" id="deleteAllModal" tabindex="-1" aria-labelledby="deleteAllModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content text-dark">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteAllModalLabel">Eliminar Todos los Usuarios</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Deseas eliminar todos los usuarios? Esta acción no se puede deshacer.</p>
+            </div>
+            <div class="modal-footer">
+                <form id="deleteAllForm" asp-action="DeleteAll" asp-controller="CustomerDelete" method="post">
+                    <button type="submit" class="btn btn-primary">Eliminar Todos</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Details-->
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content text-dark">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailModalLabel">Detalles del Usuario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>ID:</strong> <span id="detailCustomerId"></span></p> 
+                <p><strong>Nombres:</strong> <span id="detailCustomerNames"></span></p>
+                <p><strong>Documento:</strong> <span id="detailCustomerDocument"></span></p>
+                <p><strong>Dirección:</strong> <span id="detailCustomerAddress"></span></p>
+                <p><strong>Teléfono:</strong> <span id="detailCustomerPhone"></span></p>
+                <p><strong>Email:</strong> <span id="detailCustomerEmail"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

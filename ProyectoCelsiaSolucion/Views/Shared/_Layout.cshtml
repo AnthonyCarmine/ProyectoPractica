@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ProyectoCelsiaSolucion</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ProyectoCelsiaSolucion.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css" />
+    <style>
+        .sidebar {
+            background-color: #2C3034; 
+        }
+        .sidebar .nav-link {
+            color: white;
+        }
+        .sidebar .nav-link:hover {
+            background-color: #495057;
+        }
+        .logout-button {
+            background-color: red;
+            color: white;
+        }
+        .logout-button:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar vh-100">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item menu-item menuitem-active">
+                            <a href="#menuDashboards" data-bs-toggle="collapse" class="nav-link menu-link">
+                                <span class="menu-icon"><i class="bi bi-house-door"></i></span>
+                                <span class="menu-text">Paneles de control</span>
+                                <span class="badge bg-success rounded-pill ms-auto">4</span>
+                            </a>
+                            <div class="collapse show" id="menuDashboards">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item menu-item menuitem-active">
+                                        <a href="@Url.Action("Index", "Customer")" class="nav-link active">
+                                            <span class="menu-icon"><i class="bi bi-layout-text-window-reverse"></i></span>
+                                            <span class="menu-text">Tablero 1</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item menu-item">
+                                        <a href="@Url.Action("Index", "Excel")" class="nav-link">
+                                            <span class="menu-icon"><i class="bi bi-layout-text-window-reverse"></i></span>
+                                            <span class="menu-text">Tablero 2</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item menu-item">
+                                        <a href="dashboard-3.html" class="nav-link">
+                                            <span class="menu-icon"><i class="bi bi-layout-text-window-reverse"></i></span>
+                                            <span class="menu-text">Tablero 3</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item menu-item">
+                                        <a href="dashboard-4.html" class="nav-link">
+                                            <span class="menu-icon"><i class="bi bi-layout-text-window-reverse"></i></span>
+                                            <span class="menu-text">Tablero 4</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- Agrega más enlaces de navegación aquí -->
+                        <li class="nav-item menu-item mt-auto">
+                            <form id="logoutForm" asp-controller="Login" asp-action="Logout" method="post">
+                                <button type="submit" class="btn btn-link nav-link logout-button" style="border: none; background: none; cursor: pointer;">
+                                    <span class="menu-icon"><i class="bi bi-box-arrow-right"></i></span>
+                                    <span class="menu-text">Cerrar Sesión</span>
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">@ViewData["Title"]</h1>
+                </div>
+                <div class="container">
+                    <main role="main" class="pb-3">
+                        @RenderBody()
+                    </main>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <footer class="border-top footer text-muted mt-3">
+        <div class="container">
+            &copy; 2024 - ProyectoCelsiaSolucion - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

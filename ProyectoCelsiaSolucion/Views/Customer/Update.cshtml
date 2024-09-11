@@ -1,0 +1,47 @@
+@model ProyectoCelsiaSolucion.Models.Customer
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3>Actualizar datos de Cliente</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Edit" method="post">
+                        <div class="mb-3">
+                            <label for="Names" class="form-label">Nombres</label>
+                            <input type="text" class="form-control" id="Names" name="Names" asp-for="Names" required>
+                            <span asp-validation-for="Names" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Document" class="form-label">Número de Documento</label>
+                            <input type="number" class="form-control" id="Document" name="Document" asp-for="Document" required>
+                            <span asp-validation-for="Document" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Address" class="form-label">Dirección</label>
+                            <input type="text" class="form-control" id="Address" name="Address" asp-for="Address" required>
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Phone" class="form-label">Teléfono</label>
+                            <input type="text" class="form-control" id="Phone" name="Phone" asp-for="Phone" required>
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Email" class="form-label">Correo Electrónico</label>
+                            <input type="email" class="form-control" id="Email" name="Email" asp-for="Email" required>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Actualizar usuario</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
